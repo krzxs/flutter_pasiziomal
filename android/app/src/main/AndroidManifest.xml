@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.projekt.flutter_pasiziomal">
    <application
-        android:label="flutter_pasiziomal"
+        android:label="PasiQuiz"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

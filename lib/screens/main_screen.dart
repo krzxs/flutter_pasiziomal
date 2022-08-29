@@ -49,23 +49,42 @@ class _MainScreenState extends State<MainScreen> {
         ),
         titleSpacing: 32.0,
         actions: [
-          Container(
-            margin: const EdgeInsets.only(right: 16.0),
-            child: IconButton(
-              onPressed: () {
-                setState(() {
-                  _correctIngredients.clear();
-                  _generateRandomMeal();
-                });
-              },
-              focusColor: darkGray.withOpacity(0.2),
-              highlightColor: darkGray.withOpacity(0.2),
-              splashColor: darkGray.withOpacity(0.2),
-              icon: const Icon(
-                Icons.refresh,
-                color: black,
-              ),
+          IconButton(
+            onPressed: () {
+              setState(() {
+                _correctIngredients.clear();
+                _correctIngredients.addAll(
+                    _meal.ingredients.map((item) => item.toLowerCase()));
+              });
+            },
+            focusColor: darkGray.withOpacity(0.2),
+            highlightColor: darkGray.withOpacity(0.2),
+            splashColor: darkGray.withOpacity(0.2),
+            icon: const Icon(
+              Icons.visibility_outlined,
+              color: black,
             ),
+          ),
+          const SizedBox(
+            width: 16.0,
+          ),
+          IconButton(
+            onPressed: () {
+              setState(() {
+                _correctIngredients.clear();
+                _generateRandomMeal();
+              });
+            },
+            focusColor: darkGray.withOpacity(0.2),
+            highlightColor: darkGray.withOpacity(0.2),
+            splashColor: darkGray.withOpacity(0.2),
+            icon: const Icon(
+              Icons.refresh,
+              color: black,
+            ),
+          ),
+          const SizedBox(
+            width: 24.0,
           ),
         ],
       ),
@@ -124,7 +143,7 @@ class _MainScreenState extends State<MainScreen> {
                                 style: TextStyle(
                                   color: white,
                                   decoration: TextDecoration.lineThrough,
-                                  decorationThickness: 2.85,
+                                  decorationThickness: 5.0,
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -142,9 +161,7 @@ class _MainScreenState extends State<MainScreen> {
           ),
           SafeArea(
             child: Container(
-              height: 192.0,
-              padding: const EdgeInsets.symmetric(horizontal: 24.0) +
-                  const EdgeInsets.only(bottom: 16.0),
+              padding: const EdgeInsets.fromLTRB(24.0, 16.0, 24.0, 12.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -158,7 +175,7 @@ class _MainScreenState extends State<MainScreen> {
                     focusNode: _focusNode,
                   ),
                   const SizedBox(
-                    height: 24.0,
+                    height: 16.0,
                   ),
                   PrimaryButton(
                     label: 'Dodaj',
@@ -179,6 +196,9 @@ class _MainScreenState extends State<MainScreen> {
 
   void _onPressed() {
     String ingredient = _controller.text.toLowerCase();
+    if (ingredient.endsWith(' ')) {
+      ingredient = ingredient.substring(0, ingredient.length - 1);
+    }
     setState(() {
       if (_meal.ingredients
           .map((item) => item.toLowerCase())
